@@ -25,7 +25,7 @@ jobs:
       id-token: 'write'
 
     steps:
-    -name: build and deploy
+    - name: build and deploy
     uses: actions/docker-build-push-gcr-update-gke-deployment-action@v1.4
     with:
       service_account: ${{ secrets.GKE_SA_KEY_JSON}}
