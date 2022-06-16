@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-deploy
-  namespace: example
+  name: crisp-deploy
+  namespace: crisp
   labels:
-    app: example-app
+    app: crisp-app
   annotations:
 spec:
   selector:
     matchLabels:
-      app: example-app
+      app: crisp-app
   replicas: 2
   strategy:
     type: RollingUpdate
@@ -19,11 +19,11 @@ spec:
   template:
     metadata:
       labels:
-        app: example-app
+        app: crisp-app
     spec:
       containers:
-      - name: example-app
-        image: aimvector/python:1.0.0
+      - name: crisp-app
+        # image: 
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
