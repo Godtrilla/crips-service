@@ -47,7 +47,7 @@ jobs:
 
     # Build the Docker image
     - name: Build
-      run: docker build -t $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/crisp-artifacts/$IMAGE:v1 
+      run: docker build -t $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/crisp-artifacts/$IMAGE:v1 .
       # # run: |-
       # #   docker build \
       # #     --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
