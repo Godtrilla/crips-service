@@ -58,7 +58,7 @@ jobs:
     - name: Docker configuration
       uses: docker/login-action@v2
       with:
-        registry: $GAR_LOCATION-docker.pkg.dev
+        registry: $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/
         username: _json_key_base64
         password: ${{ secrets.GKE_SA_KEY }}
       # run: |-
