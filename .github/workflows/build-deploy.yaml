@@ -14,14 +14,26 @@ env:
   REPOSITORY: crisp-artifacts # TODO: update to Artifact Registry docker repository
   IMAGE: static-site
 
-uses: actions/docker-build-push-gcr-update-gke-deployment-action@v1.4
-with:
-  service_account: ${{ secrets.GKE_SA_KEY_JSON}}
-  zone: $GAR_LOCATION
-  project_id: $PROJECT_ID
-  registry: 'gcr.io'
-  image_name: 'crisp-app-dev'
-  cluster: $GKE_CLUSTER
-  namespace: 'dev'
-  deployment: 'crisp-dev'
-  container: 'crisp-app-container'
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    -name: build and deploy
+    uses: actions/docker-build-push-gcr-update-gke-deployment-action@v1.4
+    with:
+      service_account: ${{ secrets.GKE_SA_KEY_JSON}}
+      zone: $GAR_LOCATION
+      project_id: $PROJECT_ID
+      registry: 'gcr.io'
+      image_name: 'crisp-app-dev'
+      cluster: $GKE_CLUSTER
+      namespace: 'dev'
+      deployment: 'crisp-dev'
+      container: 'crisp-app-container'
