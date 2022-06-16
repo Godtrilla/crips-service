@@ -3,8 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build and Deploy to GKE
-
+name: DOCKER-GKE
 on:
   push:
     branches:
