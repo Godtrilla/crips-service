@@ -1,39 +1,39 @@
-name: Build and Deploy to GKE
+# name: Build and Deploy to GKE
 
-on:
-  push:
-    branches:
-      - "master"
+# on:
+#   push:
+#     branches:
+#       - "master"
 
-env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GAR_LOCATION: us-central1	 # TODO: update region of the Artifact Registry
-  GKE_CLUSTER: tf-jx-primary-beetle		    # TODO: update to cluster name
-  GKE_ZONE: us-central1-a	   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  REPOSITORY: crisp-artifacts # TODO: update to Artifact Registry docker repository
-  IMAGE: static-site
+# env:
+#   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+#   GAR_LOCATION: us-central1	 # TODO: update region of the Artifact Registry
+#   GKE_CLUSTER: tf-jx-primary-beetle		    # TODO: update to cluster name
+#   GKE_ZONE: us-central1-a	   # TODO: update to cluster zone
+#   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
+#   REPOSITORY: crisp-artifacts # TODO: update to Artifact Registry docker repository
+#   IMAGE: static-site
 
-jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
-    runs-on: ubuntu-latest
-    environment: production
+# jobs:
+#   setup-build-publish-deploy:
+#     name: Setup, Build, Publish, and Deploy
+#     runs-on: ubuntu-latest
+#     environment: production
 
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+#     permissions:
+#       contents: 'read'
+#       id-token: 'write'
 
-    steps:
-    - name: build and deploy
-    uses: actions/docker-build-push-gcr-update-gke-deployment-action@v1.4
-    with:
-      service_account: ${{ secrets.GKE_SA_KEY_JSON}}
-      zone: $GAR_LOCATION
-      project_id: $PROJECT_ID
-      registry: 'gcr.io'
-      image_name: 'crisp-app-dev'
-      cluster: $GKE_CLUSTER
-      namespace: 'dev'
-      deployment: 'crisp-dev'
-      container: 'crisp-app-container'
+#     steps:
+#     - name: build and deploy
+#     uses: actions/docker-build-push-gcr-update-gke-deployment-action@v1.4
+#     with:
+#       service_account: ${{ secrets.GKE_SA_KEY_JSON}}
+#       zone: $GAR_LOCATION
+#       project_id: $PROJECT_ID
+#       registry: 'gcr.io'
+#       image_name: 'crisp-app-dev'
+#       cluster: $GKE_CLUSTER
+#       namespace: 'dev'
+#       deployment: 'crisp-dev'
+#       container: 'crisp-app-container'

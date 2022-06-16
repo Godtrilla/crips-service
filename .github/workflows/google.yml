@@ -50,23 +50,21 @@ jobs:
 #         service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
 
     # Alternative option - authentication via credentials json
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        credentials_json: '${{ secrets.GKE_SA_KEY_JSON }}'
+    # - id: 'auth'
+    #   uses: 'google-github-actions/auth@v0'
+    #   with:
+    #     credentials_json: '${{ secrets.GKE_SA_KEY_JSON }}'
 
-    - name: build and deploy
-      uses: actions/docker-build-push-gcr-update-gke-deployment-action@v1.4
+    - name: build and deploy to GAR
+      uses: par-tec/docker-push-gar-image@latest
       with:
-        service_account: ${{ secrets.GKE_SA_KEY_JSON}}
-        zone: $GAR_LOCATION
-        project_id: $PROJECT_ID
-        registry: 'gcr.io'
-        image_name: 'crisp-app-dev'
-        cluster: $GKE_CLUSTER
-        namespace: 'dev'
-        deployment: 'crisp-dev'
-        container: 'crisp-app-container'
+        image_name: crisp-app
+        image_tag: v1.0.0
+        docker_context: ./
+        gar_hostname: $GAR_LOCATION-docker.pkg.dev
+        gar_project: ${{ secrets.GKE_PROJECT }}
+        gar_service_account: ${{ secrets.GKE_SA_KEY_JSON }}
+        tag_latest_version: true
 
     # - name: Docker configuration
     #   uses: docker/login-action@v2
