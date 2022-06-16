@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crisp-k8s-deployment
+spec:
+  selector:
+    matchLabels:
+      app: crisp-k8s
+  template:
+    metadata:
+      labels:
+        app: crisp-k8s
+    spec:
+      containers:
+        - name: crisp-k8s
+          image: docker.io/deno1993/crisp-app
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
