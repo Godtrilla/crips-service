@@ -68,7 +68,5 @@ jobs:
     # Deploy the Docker image to the GKE cluster.
     - name: Deploy
       run: |-
-        ./kustomize edit set image $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/crisp-artifacts/$IMAGE:v1
-        kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
+        kubectl apply -f ~/crisp-service/application
         kubectl get services -o wide

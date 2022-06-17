@@ -23,14 +23,7 @@ spec:
     spec:
       containers:
       - name: crisp-app
-        # image: 
+        image: us-central1-docker.pkg.dev/crisp-service/crisp-artifacts/crisp-app:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        volumeMounts:
-        - name: config-volume
-          mountPath: /configs/
-      volumes:
-      - name: config-volume
-        configMap:
-          name: example-config
